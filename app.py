@@ -3,7 +3,7 @@ from flask import Flask, render_template, url_for, request, redirect
 import psycopg2
 import yaml
 
-app_ps = Flask(__name__)
+app = Flask(__name__)
 
 # postgresql database configuration
 info = yaml.load(open('db.yaml'))
