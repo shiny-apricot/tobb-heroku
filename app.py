@@ -15,23 +15,23 @@ POSTGRESQL_URI = f'postgresql://{user}:{password}@{host}/{database}'
 
 connection = psycopg2.connect(POSTGRESQL_URI)
 
-@app_ps.route('/')
+@app.route('/')
 def home():
   return render_template('home.html')
 
-@app_ps.route('/home')
+@app.route('/home')
 def index():
   return render_template('index.html')
 
-@app_ps.route('/bank')
+@app.route('/bank')
 def bank():
   return render_template('bank.html')
 
-@app_ps.route('/admins', methods=['GET', 'POST',])
+@app.route('/admins', methods=['GET', 'POST',])
 def admins():
   return render_template('admins.html')
 
-@app_ps.route('/table')
+@app.route('/table')
 def table():
   # postgre queries
   with connection:
@@ -40,7 +40,7 @@ def table():
       members = cursor.fetchall()
   return render_template('table.html', members=members)
 
-@app_ps.route('/settings', methods=['GET', 'POST'])
+@app.route('/settings', methods=['GET', 'POST'])
 def settings():
   if request.method == 'POST':
     discount = request.form['"name" or "id" of content ']
