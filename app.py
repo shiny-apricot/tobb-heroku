@@ -21,7 +21,19 @@ def home():
 
 @app.route('/home')
 def index():
-  return render_template('index.html')
+  with connection:
+        with connection.cursor() as cursor:
+          cursor.execute("SELECT d.department_name d_name, count(*) as number FROM Member m "
+                              "INNER JOIN Department d ON m.department = d.department_code GROUP BY d_name")
+          department = cursor.fetchall()
+          dep_list = list()
+          for dep in department: 
+            # '["'+ dep[0] + '",' + str(dep[1]) +'],'
+            dep_list.append(dep)
+          app.logger.error("BELOW")
+          print(dep_list)
+  return render_template('home.html', dep_list= dep_list)
+
 
 @app.route('/bank')
 def bank():
